@@ -1,3 +1,32 @@
+## Function to show a segment
+function prompt_segment -d "Function to show a segment"
+  # Get colors
+  set -l bg $argv[1]
+  set -l fg $argv[2]
+
+  # Set 'em
+  set_color -b $bg
+  set_color $fg
+
+  # Print text
+  if [ -n "$argv[3]" ]
+    echo -n -s $argv[3]
+  end
+end
+
+## Function to show current status
+function show_status -d "Function to show the current status"
+  if [ $RETVAL -ne 0 ]
+    prompt_segment normal white " ᚌ "
+    set pad ""
+    end
+  if [ -n "$SSH_CLIENT" ]
+      prompt_segment blue white " SSH: "
+      prompt_segment normal white "$red$USER$normal at $bred$__fish_prompt_hostname$normal in"
+      set pad ""
+    end
+end
+
 function fish_prompt
   # Cache exit status
   set -l last_status $status
@@ -11,7 +40,7 @@ function fish_prompt
       case 0
         set -g __fish_prompt_char \u276f\u276f
       case '*'
-        set -g __fish_prompt_char »
+        set -g __fish_prompt_char ᛃ
     end
   end
 
@@ -34,8 +63,10 @@ function fish_prompt
     set pcolor $bred
   end
 
+  set -g RETVAL $status
+
   # Top
-  echo -n $cyan$USER$normal at $yellow$__fish_prompt_hostname$normal in $bred(prompt_pwd)$normal
+  echo -n show_status$bcyan(prompt_pwd)$normal
   __fish_git_prompt
 
   echo
