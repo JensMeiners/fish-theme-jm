@@ -38,7 +38,7 @@ function fish_prompt
   if not set -q __fish_prompt_char
     switch (id -u)
       case 0
-        set -g __fish_prompt_char \u276f\u276f
+        set -g __fish_prompt_char \u16C3
       case '*'
         set -g __fish_prompt_char ᛃ
     end
@@ -66,7 +66,8 @@ function fish_prompt
   set -g RETVAL $status
 
   # Top
-  echo -n show_status$bcyan(prompt_pwd)$normal
+  show_status
+  echo -n $bcyan(prompt_pwd)$normal
   __fish_git_prompt
 
   echo
