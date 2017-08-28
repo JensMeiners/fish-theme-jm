@@ -17,11 +17,11 @@ end
 ## Function to show current status
 function show_status -d "Function to show the current status"
   if [ $RETVAL -ne 0 ]
-    prompt_segment normal white " ᚌ "
+    prompt_segment normal white "ᚌ "
     set pad ""
     end
   if [ -n "$SSH_CLIENT" ]
-      prompt_segment blue white " SSH: "
+      prompt_segment blue white "SSH: "
       prompt_segment normal white "$red$USER$normal at $bred$__fish_prompt_hostname$normal in"
       set pad ""
     end
@@ -58,7 +58,7 @@ function fish_prompt
   set -g __fish_git_prompt_showcolorhints true
 
   # Color prompt char red for non-zero exit status
-  set -l pcolor $bpurple
+  set -l pcolor $bwhite
   if [ $last_status -ne 0 ]
     set pcolor $bred
   end
